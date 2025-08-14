@@ -1,13 +1,15 @@
 // ✅ Configuración de Firebase ya personalizada
 
     // ✅ Configuración de Firebase
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCozJXTEJct407_E6CpjLSK6EOZgk-W8fc",
-  authDomain: "modaestil0.firebaseapp.com",
-  projectId: "modaestil0",
-  storageBucket: "modaestil0.appspot.com",
-  messagingSenderId: "277454254263",
-  appId: "1:277454254263:web:8de217a8c39e25ad1d1d32"
+  apiKey: "AIzaSyCdRD_7zjuRp5586wcaa2WA_ZhzecKf5jM",
+  authDomain: "modaestilo-e8dec.firebaseapp.com",
+  databaseURL: "https://modaestilo-e8dec-default-rtdb.firebaseio.com",
+  projectId: "modaestilo-e8dec",
+  storageBucket: "modaestilo-e8dec.firebasestorage.app",
+  messagingSenderId: "710901651909",
+  appId: "1:710901651909:web:fe0bd97a14b25e191653ac"
 };
 
 firebase.initializeApp(firebaseConfig);
