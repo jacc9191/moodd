@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+
+</head>
+<body>
+  <h1>Panel de Administración</h1>
+  <div id="login">
+    <input type="email" id="correo" placeholder="Correo" />
+    <input type="password" id="clave" placeholder="Contraseña" />
+    <button onclick="loginFirebase()" class="btn-negro">Iniciar sesión</button>
+  </div>
+
+  
+  
+  <div id="admin" style="display:none;">
+    <div class="toggle-section">
+      <button onclick="mostrarSeccion('configuracion')">⚙️ Configuración</button>
+      <div id="seccion-configuracion" class="seccion">
+        <h2>Redes Sociales</h2>
+        <input id="configWhatsapp" placeholder="Número WhatsApp (Ej: 573001234567)">
+        <input id="configWspPedido" placeholder="Número WhatsApp para pedidos (Ej: 573001234567)">
+        <input id="configFacebook" placeholder="URL de Facebook">
+        <input id="configInstagram" placeholder="URL de Instagram">
+        <input id="configTikTok" placeholder="URL de TikTok">
+        <button onclick="guardarConfiguracion()" class="btn-verde">Guardar Configuración</button>
+      </div>
+    </div>
+
+<div class="toggle-section">
+  <button onclick="mostrarSeccion('subidor-imgur')">📤 Subir Imagen</button>
+  <div id="seccion-subidor-imgur" class="seccion">
+    <h3>📤 Subir imagen a Imgur (sin cuenta)</h3>
+    <input type="file" id="inputImgur" accept="image/*">
+    <button onclick="subirImagenImgur()" class="btn-verde">Subir imagen</button>
+    <p id="estadoImgur" style="margin-top: 10px;"></p>
+    <img id="previewImgur" src="" alt="Vista previa" style="max-width: 200px; display: none; margin-top: 10px;">
+  </div>
+</div>
+
+
+
+   <div class="toggle-section">
+      <button onclick="mostrarSeccion('quienes')">✏️ Quiénes Somos</button>
+      <div id="seccion-quienes" class="seccion">
+        <textarea id="quienesSomosTexto" rows="6"></textarea>
+        <button onclick="guardarQuienesSomos()" class="btn-verde">💾 Guardar texto</button>
+      </div>
+    </div>
+
+
+
+    
+    <div class="toggle-section">
+      <button onclick="mostrarSeccion('pagos')">💳 Métodos de Pago</button>
+      <div id="seccion-pagos" class="seccion">
+        <input id="nombreBanco" placeholder="Nombre del banco o app (Ej: Nequi)">
+        <input id="numeroCuenta" placeholder="Número de cuenta o teléfono (Ej: 3155555555)">
+        <button onclick="guardarMetodoPago()" class="btn-verde">Guardar método</button>
+        <ul id="listaMetodosPago"></ul>
+      </div>
+    </div>
+
+
+<div class="toggle-section">
+  <button onclick="mostrarSeccion('galeria')">🖼️ Galería</button>
+  <div id="seccion-galeria" class="seccion">
+    <div class="admin-galeria">
+      
+      <!-- 📝 Descripción -->
+      <label for="inputDescripcion">📝 Descripción general:</label>
+      <textarea id="inputDescripcion" placeholder="Escribe la descripción aquí..."></textarea>
+
+      <!-- 💬 Texto promocional -->
+      <h3>Texto debajo de promociones por cantidad</h3>
+      <textarea id="textoPromocionCantidad" rows="3" placeholder="💡 Escribe aquí tu mensaje de ahorro..."></textarea>
+
+      <!-- 🔗 Enlaces -->
+      <label for="inputLinks">🔗 Pega aquí los enlaces de las imágenes (uno por línea):</label>
+      <textarea id="inputLinks" placeholder="https://miimagen.com/1.jpg
+https://otraimagen.com/2.jpg" rows="6"></textarea>
+
+      <!-- 👁️ Vista previa -->
+      <button onclick="mostrarVistaPreviaGaleria()" class="btn-negro">🔄 Ver Galería Actual</button>
+      
+      <!-- 🖼️ Aquí aparece la galería -->
+      <div id="vistaGaleria" class="vista-galeria"></div>
+
+      <!-- 💾 Botón guardar -->
+      <button onclick="guardarGaleriaPorLinks()" class="btn-verde">💾 Guardar galería</button>
+      <div id="estadoSubida" style="margin-top: 1rem; color: green;"></div>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="toggle-section">
+      <button onclick="mostrarSeccion('productos')">🧺 Productos</button>
+      <div id="seccion-productos" class="seccion">
+        <h2>Agregar Producto</h2>
+        <input id="nuevoNombre" placeholder="Nombre producto"><div class="campo">
+  <label for="precioOriginal">Precio original</label>
+  <input type="number" id="precioOriginal" placeholder="Ej: 80000" required />
+</div>
+
+<!-- 🔥 Nuevo campo de descuento -->
+<div class="campo">
+  <label for="descuento">Descuento (%)</label>
+  <input type="number" id="descuento" placeholder="Ej: 10" />
+</div>
+
+<div class="campo">
+  <label for="descripcion">Descripción</label>
+  <textarea id="descripcion" placeholder="Detalles del producto..." rows="3"></textarea>
+</div>
+
+<div class="campo">
+  <label for="colorPrincipal">Color principal</label>
+  <input type="text" id="colorPrincipal" placeholder="Ej: negro" required />
+</div>
+
+<div class="campo">
+  <label for="tallas">Tallas disponibles (separadas por coma)</label>
+  <input type="text" id="tallas" placeholder="Ej: 35,36,37,38,39" required />
+</div>
+
+<div class="campo">
+  <label for="imagenes">Imágenes (formato: color|url, separadas por coma)</label>
+  <input type="text" id="imagenes" placeholder="Ej: negro|https://... , blanco|https://..." required />
+</div>
+
+<div id="preciosPorCantidad" class="campo">
+  <label>Precios por cantidad (opcional):</label>
+  <input type="number" data-cantidad="2" placeholder="Precio por 2 pares" />
+  <input type="number" data-cantidad="3" placeholder="Precio por 3 pares" />
+  <input type="number" data-cantidad="4" placeholder="Precio por 4 pares" />
+</div>
+
+<button class="btn-verde" onclick="agregarProducto()">Agregar producto</button>
+<!-- Después del botón "Agregar producto" -->
+<h2>Productos existentes</h2>
+<div id="productos"></div>
+
+  </div>
+
+      </div>  
+    <!-- Dentro de #admin, al final -->
+<button onclick="cerrarSesion()" class="btn-rojo">Cerrar sesión</button>
+
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+:root {
+  --color-verde: #06de06;
+  --color-verde-hover: #04b804;
+  --color-rojo: #dc3545;
+  --color-rojo-hover: #c82333;
+  --color-negro: #000000;
+  --color-negro-hover: #222;
+  --color-fondo: #ffffff;
+  --color-texto: #111;
+  --borde-radius: 10px;
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --fondo-card: #fff;
+  --gris-claro: #f9f9f9;
+  --color-borde-input: #ccc;
+  --color-borde-focus: #000;
+}
+
+/* ✅ ESTILO GLOBAL */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: var(--color-texto);
+}
+
+/* ✅ CONTENEDORES PRINCIPALES */
+#login, #admin {
+  max-width: 900px;
+  margin: auto;
+  background: var(--fondo-card);
+  padding: 2rem;
+  border-radius: var(--borde-radius);
+  box-shadow: var(--sombra-suave);
+  text-align: center;
+}
+
+/* ✅ CAMPOS DE FORMULARIO */
+input, textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-borde-input);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: var(--color-texto);
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--color-borde-focus);
+  outline: none;
+}
+
+/* ✅ BOTONES GENERALES */
+button {
+  width: 180px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s;
+  display: inline-block;
+  margin: 0.5rem auto;
+  text-align: center;
+}
+
+.btn-verde {
+  background-color: var(--color-verde);
+  color: #fff;
+}
+.btn-verde:hover {
+  background-color: var(--color-verde-hover);
+}
+
+.btn-rojo {
+  background-color: var(--color-rojo);
+  color: #fff;
+}
+.btn-rojo:hover {
+  background-color: var(--color-rojo-hover);
+}
+
+.btn-negro {
+  background-color: var(--color-negro);
+  color: #fff;
+}
+.btn-negro:hover {
+  background-color: var(--color-negro-hover);
+}
+
+/* ✅ BOTONES EN SECCIONES TOGGLE */
+.toggle-section {
+  text-align: center;
+}
+.toggle-section button {
+  width: 180px;
+  margin: 0.5rem auto;
+  font-size: 1rem;
+  border-radius: var(--borde-radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s;
+}
+
+/* 🛡️ Solo si no tiene color personalizado, aplicar negro */
+.toggle-section button:not(.btn-verde):not(.btn-rojo):not(.btn-negro) {
+  background-color: var(--color-negro);
+  color: white;
+}
+
+.toggle-section button:not(.btn-verde):not(.btn-rojo):not(.btn-negro):hover {
+  background-color: var(--color-negro-hover);
+}
+
+/* ✅ SECCIONES PLEGABLES */
+.seccion {
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--gris-claro);
+  border-radius: var(--borde-radius);
+  display: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.seccion.activa {
+  display: block;
+}
+
+/* ✅ IMAGEN PREVIEW GENERAL */
+.preview-img {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 1rem auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ LISTAS Y ELEMENTOS DE PRODUCTOS */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+ul li {
+  background: #fff;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+ul li button {
+  width: 180px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+/* ✅ ADMIN GALERÍA */
+.admin-galeria {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: var(--fondo-card);
+  padding: 2rem;
+  border-radius: var(--borde-radius);
+  box-shadow: var(--sombra-suave);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.admin-galeria label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: var(--color-texto);
+}
+.admin-galeria textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #fff;
+  color: var(--color-texto);
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.admin-galeria textarea:focus {
+  border-color: var(--color-negro);
+  outline: none;
+}
+.admin-galeria button {
+  width: 180px;
+  align-self: center;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--color-verde);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s;
+}
+.admin-galeria button:hover {
+  background-color: var(--color-verde-hover);
+}
+
+/* ✅ GALERÍA DE IMÁGENES */
+#vistaGaleria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+#vistaGaleria img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: var(--sombra-suave);
+}
+
+/* ✅ LISTADO DE PRODUCTOS ADMIN */
+.lista-productos-admin {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.lista-productos-admin div {
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f4f4f4;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ✅ TEXTO PROMOCIONAL EN PRODUCTOS CON DESCUENTO POR CANTIDAD */
+.texto-promocion {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1rem;
+  background-color: #fff8d8;
+  border-left: 4px solid #f0ad4e;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 6px;
+  box-shadow: var(--sombra-suave);
+}
+
+/* ✅ RESPONSIVE */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  button, input, textarea {
+    width: 100%;
+  }
+
+  .admin-galeria {
+    padding: 1rem;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+
+/* ✅ NUEVA ANIMACIÓN DE DESPLAZAMIENTO */
+@keyframes scrollGaleria {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Estilos para la vista de galería en modo carrusel */
+#vistaGaleria.carrusel {
+  display: flex;
+  /* Elimina el wrapping para que las imágenes se sitúen en línea */
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  /* Opcional: definir un ancho fijo si es necesario */
+  width: 100%;
+  padding: 10px 0;
+}
+
+/* Activar la animación del carrusel */
+#vistaGaleria.carrusel.scroll-infinito {
+  animation: scrollGaleria 30s linear infinite;
+}
+
+/* Pausa la animación al pasar el cursor (opcional) */
+#vistaGaleria.carrusel:hover {
+  animation-play-state: paused;
+}
+
+/* Ajusta el estilo de las imágenes en el carrusel */
+#vistaGaleria.carrusel img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: var(--sombra-suave);
+  /* Evita que las imágenes se compriman si hay muchas */
+  flex-shrink: 0;
+  margin: 0 8px;
+}
